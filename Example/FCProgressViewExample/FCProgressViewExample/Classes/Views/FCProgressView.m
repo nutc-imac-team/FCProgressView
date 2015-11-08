@@ -31,7 +31,7 @@
         
         CGMutablePathRef tempDotPath = CGPathCreateMutable();
         CGPathMoveToPoint(tempDotPath, nil, CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 100);
-        CGPathAddLineToPoint(tempDotPath, nil, CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 21);
+        CGPathAddLineToPoint(tempDotPath, nil, CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 20);
         
         self.dotLayer = [CAShapeLayer layer];
         self.dotLayer.path = tempDotPath;
@@ -41,8 +41,9 @@
         [self.layer addSublayer:self.dotLayer];
         
         UIBezierPath *tempVectorPath = [UIBezierPath bezierPath];
-        [tempVectorPath moveToPoint:CGPointMake(CGRectGetMidX(self.frame) - 30, CGRectGetMidY(self.frame) - 60)];
-        [tempVectorPath addQuadCurveToPoint:CGPointMake(CGRectGetMidX(self.frame) + 30, CGRectGetMidY(self.frame) - 60) controlPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) + 20)];
+        [tempVectorPath moveToPoint:CGPointMake(CGRectGetMidX(self.frame) - 30, CGRectGetMidY(self.frame) - 50)];
+        [tempVectorPath addLineToPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 20)];
+        [tempVectorPath addLineToPoint:CGPointMake(CGRectGetMidX(self.frame) + 30, CGRectGetMidY(self.frame) - 50)];
         
         
         self.middleVectorLayer = [CAShapeLayer layer];
@@ -65,11 +66,22 @@
         
         CGPathRelease(tempCirclePath);
         CGPathRelease(tempDotPath);
+        
+        UITapGestureRecognizer *testGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(halfAnimation)];
+        [testGesture setNumberOfTapsRequired:1];
+        [testGesture setNumberOfTouchesRequired:1];
+        [self addGestureRecognizer:testGesture];
     }
     return self;
 }
 
 - (void) halfAnimation {
+    
+    UIBezierPath *tempVectorPath = [UIBezierPath bezierPath];
+    [tempVectorPath moveToPoint:CGPointMake(CGRectGetMidX(self.frame) - 30, CGRectGetMidY(self.frame) - 50)];
+    [tempVectorPath addCurveToPoint:CGPointMake(CGRectGetMidX(self.frame) + 30, CGRectGetMidY(self.frame) - 50) controlPoint1:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 20) controlPoint2:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 20)];
+    
+    self.middleVectorLayer.path = tempVectorPath.CGPath;
     
     NSMutableArray *vectorAnimationArray = [NSMutableArray array];
     
@@ -82,8 +94,8 @@
     [testToAngleVectorPath addQuadCurveToPoint:CGPointMake(CGRectGetMidX(self.frame) + 60, CGRectGetMidY(self.frame) - 50) controlPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 50)];
     
     UIBezierPath *testToAngleTwoVectorPath = [UIBezierPath bezierPath];
-    [testToAngleTwoVectorPath moveToPoint:CGPointMake(CGRectGetMidX(self.frame) - 60, CGRectGetMidY(self.frame) - 50)];
-    [testToAngleTwoVectorPath addQuadCurveToPoint:CGPointMake(CGRectGetMidX(self.frame) + 60, CGRectGetMidY(self.frame) - 50) controlPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 90)];
+    [testToAngleTwoVectorPath moveToPoint:CGPointMake(CGRectGetMidX(self.frame) - 60, CGRectGetMidY(self.frame) - 40)];
+    [testToAngleTwoVectorPath addQuadCurveToPoint:CGPointMake(CGRectGetMidX(self.frame) + 60, CGRectGetMidY(self.frame) - 40) controlPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 90)];
     
     CABasicAnimation *vectorTestAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
     vectorTestAnimation.duration = 0.2;
@@ -227,14 +239,14 @@
     CGPathAddArc(tempDotThreePath, nil, CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 60, 120, - M_PI / 2, - M_PI * 2 - M_PI / 2, 1);
     
     CABasicAnimation *dotKeepAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
-    dotKeepAnimation.duration = 0.35;
+    dotKeepAnimation.duration = 0.3;
     [dotKeepAnimation setBeginTime:0.3];
     dotKeepAnimation.fromValue = (__bridge NSValue*)tempDotPath;
     dotKeepAnimation.toValue = (__bridge NSValue*)tempDotPath;
     
     CABasicAnimation *dotUpAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
-    dotUpAnimation.duration = 0.3;
-    [dotUpAnimation setBeginTime:0.65];
+    dotUpAnimation.duration = 0.35;
+    [dotUpAnimation setBeginTime:0.6];
     [dotUpAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
     dotUpAnimation.fromValue = (__bridge NSValue*)tempDotPath;
     dotUpAnimation.toValue = (__bridge NSValue*)tempDotUpPath;
