@@ -1,4 +1,5 @@
 # iOS-001-FCProgressView
 
 Test Image
-![](http://i.imgur.com/q85HMWq.gifv)
+
+![](http://i.imgur.com/q85HMWq.gif)
