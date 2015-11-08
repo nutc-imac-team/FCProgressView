@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FCProgressView.h"
 
 @interface ExampleProgressView : UIView
+
+@property (nonatomic, strong) FCProgressView *fcProgressView;
 
 @end

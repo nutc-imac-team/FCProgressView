@@ -14,6 +14,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
+        
+        self.fcProgressView = [[FCProgressView alloc] initFcProgress];
+        [self addSubview:self.fcProgressView];
     }
     return self;
 }
