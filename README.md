@@ -1,3 +1,3 @@
 # iOS-001-FCProgressView
 
-![](http://i.imgur.com/EKwkH2V.gif)
+![](http://i.imgur.com/l7OAoO2.gif)
