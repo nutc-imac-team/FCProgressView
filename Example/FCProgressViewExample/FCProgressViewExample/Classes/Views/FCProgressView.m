@@ -218,8 +218,8 @@
     
     
     CGMutablePathRef tempDotPath = CGPathCreateMutable();
-    CGPathMoveToPoint(tempDotPath, nil, CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 70);
-    CGPathAddLineToPoint(tempDotPath, nil, CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 67);
+    CGPathMoveToPoint(tempDotPath, nil, CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 60);
+    CGPathAddLineToPoint(tempDotPath, nil, CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 57);
     
     CABasicAnimation *dotAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
     dotAnimation.duration = 0.3;
